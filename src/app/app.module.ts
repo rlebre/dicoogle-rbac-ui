@@ -12,7 +12,9 @@ import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
 import { ModalNewEntity } from './dashboard/facilities/modal-new-facility/modal-new-facility.component';
 
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
     declarations: [
@@ -25,10 +27,13 @@ import { ModalNewEntity } from './dashboard/facilities/modal-new-facility/modal-
     imports: [
         BrowserModule,
         ModalModule.forRoot(),
-        BootstrapModalModule
+        BootstrapModalModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule
     ],
     providers: [],
     bootstrap: [AppComponent],
-    entryComponents: [ ModalNewEntity ]
+    entryComponents: [ModalNewEntity]
 })
 export class AppModule { }
