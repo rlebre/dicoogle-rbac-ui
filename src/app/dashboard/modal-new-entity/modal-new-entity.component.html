@@ -1,0 +1,27 @@
+<div class="container-fluid custom-modal-container custom-modal-style">
+  <div class="row custom-modal-header">
+    <div class="col-sm-12">
+      <h3>Create new {{ context.caller }}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <form #newForm="ngForm" [formGroup]="context.formGroup" (ngSubmit)="onSubmit($event)">
+        <div class="form-group row" *ngFor="let field of context.fields">
+          <label for="{{ field.headerField }}" class="col-sm-3 col-form-label">{{ field.headerField }}</label>
+          <div class="col-sm-9">
+            <input type="{{ field.inputType.replace('?','') }}" class="form-control" id="{{ field.apiField }}"  formControlName="{{ field.apiField }}"
+             placeholder="{{ field.headerField }}" [attr.required]="field.inputType.endsWith('?') ? '' : undefined">
+             <!-- <div [hidden]="field.apiField.valid || field.apiField.pristine"
+                class="alert alert-danger">
+              {{ field.headerField }} is required
+            </div> -->
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!context.formGroup.valid">Submit</button>
+        <button type="button" class="btn bt-primary" (click)="closeDialog()">Close</button>
+      </form>
+    </div>
+  </div>
+</div>

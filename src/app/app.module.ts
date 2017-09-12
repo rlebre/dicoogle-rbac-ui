@@ -10,11 +10,14 @@ import { FacilitiesComponent } from './dashboard/facilities/facilities.component
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
-import { ModalNewEntity } from './dashboard/facilities/modal-new-facility/modal-new-facility.component';
+import { ModalNewEntity } from './dashboard/modal-new-entity/modal-new-entity.component';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+import { FacilitiesService } from './dashboard/facilities/facilities.service';
+import { HttpClient } from './HttpAuthTokenInterceptor.service';
 
 @NgModule({
     declarations: [
@@ -32,7 +35,7 @@ import { HttpModule } from '@angular/http';
         ReactiveFormsModule,
         HttpModule
     ],
-    providers: [],
+    providers: [FacilitiesService, HttpClient],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]
 })
