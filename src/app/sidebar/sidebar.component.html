@@ -25,8 +25,29 @@
       <li class="sidebar-brand">
         <a href="#">Dicoogle RBAC</a>
       </li>
-      <li *ngFor="let section of arrayOfSections">
+      <!-- <li *ngFor="let section of arrayOfSections">
         <a href="#{{ section.toLowerCase() }}">{{ section }}</a>
+      </li> -->
+      <li>
+        <a href="#facilities" (click)="facilitiesClick()">Facilities</a>
+      </li>
+      <li>
+        <a href="#organizations" (click)="organizationsClick()">Organizations</a>
+      </li>
+      <li>
+        <a href="#users" (click)="usersClick()">Users</a>
+      </li>
+      <li>
+        <a href="#roles" (click)="rolesClick()">Roles</a>
+      </li>
+      <li>
+        <a href="#permissions" (click)="permissionsClick()">Permissions</a>
+      </li>
+      <li>
+        <a href="#operations" (click)="operationsClick()">Operations</a>
+      </li>
+      <li>
+        <a href="#categories" (click)="categoriesClick()">Categories</a>
       </li>
     </ul>
   </div>
@@ -35,7 +56,7 @@
   <!-- Page Content -->
   <div id="page-content-wrapper">
     <div class="container-fluid">
-        <app-dashboard></app-dashboard>
+      <app-dashboard></app-dashboard>
     </div>
   </div>
   <!-- /#page-content-wrapper -->
