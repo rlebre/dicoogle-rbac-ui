@@ -19,6 +19,10 @@ import { HttpModule } from '@angular/http';
 import { FacilitiesService } from './dashboard/facilities/facilities.service';
 import { HttpClient } from './HttpAuthTokenInterceptor.service';
 
+import { SelectedEntityService } from './sidebar/selected-entity/selected-entity.service'
+import { CreateEntityService } from './dashboard/create-entity/create-entity.service';
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -35,7 +39,12 @@ import { HttpClient } from './HttpAuthTokenInterceptor.service';
         ReactiveFormsModule,
         HttpModule
     ],
-    providers: [FacilitiesService, HttpClient],
+    providers: [
+        FacilitiesService,
+        HttpClient,
+        SelectedEntityService,
+        CreateEntityService
+    ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]
 })
