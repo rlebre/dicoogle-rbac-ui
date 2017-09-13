@@ -8,7 +8,7 @@ export class HttpClient {
     constructor(private http: Http) { }
 
     createAuthorizationHeader(headers: Headers) {
-        headers.append('Authorization', "8811b303-2d77-4a0f-b88b-ff80a2f0dabd");
+        headers.append('Authorization', "85df68c9-cc1d-4019-8c56-c12630b2c79c");
     }
 
     get(url) {
@@ -25,5 +25,14 @@ export class HttpClient {
         return this.http.post(url, data, {
             headers: headers
         });
+    }
+
+    delete(url) {
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+        return this.http.delete(url, {
+            headers: headers
+        });
+
     }
 }
