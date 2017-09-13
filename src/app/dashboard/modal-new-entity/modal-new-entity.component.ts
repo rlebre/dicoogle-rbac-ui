@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { DialogRef, ModalComponent, CloseGuard } from 'ngx-modialog';
 import { BSModalContext } from 'ngx-modialog/plugins/bootstrap';
 
-import { FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
+import { CreateEntityService } from '../create-entity/create-entity.service';
 
 export class InputField {
   public apiField: String;
@@ -18,13 +19,13 @@ export class InputField {
     this.inputType = inputType;
     this.dropdownFields = dropdownFields;
   }
-
 }
 
 export class CustomModalContext extends BSModalContext {
   public caller: String;
+  public apiName: String;
   public fields: InputField[];
-  public formGroup : FormGroup;
+  public formGroup: FormGroup;
 }
 
 @Component({
@@ -35,26 +36,28 @@ export class CustomModalContext extends BSModalContext {
 export class ModalNewEntity implements CloseGuard, ModalComponent<CustomModalContext> {
   context: CustomModalContext;
 
-  constructor(public dialog: DialogRef<CustomModalContext>) {
+  constructor(public dialog: DialogRef<CustomModalContext>, private createEntityService: CreateEntityService) {
     this.context = dialog.context;
   }
 
 
   beforeDismiss(): boolean {
-  return true;
+    return true;
   }
 
   beforeClose(): boolean {
-   return true;
+    return true;
   }
 
   closeDialog() {
     this.dialog.close();
-    console.log("closed!");
   }
 
-  onSubmit(f:any) {
-    console.log("submitted!", f);
-    console.log(this.context.formGroup.value);
+  onSubmit(f: any) {
+    //console.log(this.context);
+    //console.log(this.context.formGroup.value);
+    let apiName = this.context.apiName;
+    let data = this.context.formGroup.value;
+    this.createEntityService.post(apiName, data).subscribe();
   }
 }

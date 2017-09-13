@@ -20,8 +20,12 @@ export class FacilitiesService {
     }
   }
 
-  getAllAnnotations() {
+  getAllFacilities() {
     return this.http.get(this.url);
+  }
+
+  deleteFacility(id: Number) {
+    return this.http.delete(this.url + "?id=" + id);
   }
 
   // getAnnotationByName() {

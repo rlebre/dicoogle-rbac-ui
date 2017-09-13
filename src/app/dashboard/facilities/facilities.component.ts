@@ -8,6 +8,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { FacilitiesService } from './facilities.service';
 
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
   selector: 'app-facilities',
@@ -17,8 +19,13 @@ import { FacilitiesService } from './facilities.service';
 })
 export class FacilitiesComponent implements OnInit {
   fields: InputField[];
+  dataAvailable: boolean;
+  tableData: any;
+  isRefreshing = false;
 
-  public newFacilityForm = this.fb.group({
+  timer;
+
+  newFacilityForm = this.fb.group({
     uuidAtCP: ["", Validators.required],
     city: ["", Validators.required],
     country: ["", Validators.compose([Validators.minLength(2), Validators.required])],
@@ -29,13 +36,13 @@ export class FacilitiesComponent implements OnInit {
     idOrganization: [""]
   });
 
-  constructor(public fb: FormBuilder, public modal: Modal, private facilitiesService : FacilitiesService) {
+  constructor(public fb: FormBuilder, public modal: Modal, private facilitiesService: FacilitiesService) {
     let uuidAtCP = new InputField("uuidAtCP", "UUID at CP", "text");
     let city = new InputField("city", "City", "text");
     let country = new InputField("country", "Country", "text");
     let name = new InputField("name", "Name", "text");
     let number = new InputField("number", "Number", "number");
-    let postalCode = new InputField("postalCode", "Postal Code", "number");
+    let postalCode = new InputField("postalCode", "Postal Code", "text");
     let street = new InputField("street", "Street", "text");
     let organization = new InputField("idOrganization", "Organization ID", "number?");
 
@@ -43,21 +50,67 @@ export class FacilitiesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.facilitiesService.getAllAnnotations().subscribe(response => {
-      console.log(response.json());
-    });
-
+    this.requestAllFacilitiesFromServer();
   }
 
 
   openNewFacilityModalWindow() {
+    const dialogRef = this.modal.open(ModalNewEntity,
+      overlayConfigFactory({ caller: "Facility", apiName: "facilities", fields: this.fields, formGroup: this.newFacilityForm }, BSModalContext));
+  }
 
-    const dialogRef = this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: "Facility", fields: this.fields, formGroup: this.newFacilityForm }, BSModalContext));
+  fillTableWithReceivedData(jsonList) {
+    if (jsonList.length === 0) {
+      this.dataAvailable = false;
+      return;
+    }
 
-    // dialogRef
-    //   .then(dialogRef => {
-    //     dialogRef.result.then(result => alert(`The result is: ${result}`));
-    //   });
+    this.tableData = jsonList;
+    this.dataAvailable = true;
+  }
 
+
+  refresh() {
+    this.isRefreshing = true;
+    this.timer = Observable.timer(1000);
+    this.timer.subscribe(t => this.tickerFunc(t));
+
+    this.requestAllFacilitiesFromServer();
+  }
+
+  tickerFunc(tick) {
+    this.isRefreshing = false;
+  }
+
+  requestAllFacilitiesFromServer() {
+    this.facilitiesService.getAllFacilities().subscribe(response => {
+      this.fillTableWithReceivedData(response.json());
+    });
+  }
+
+  editFacility(facility: any) {
+    var form = this.fb.group({
+      uuidAtCP: [facility.uuid, Validators.required],
+      city: [facility.city, Validators.required],
+      country: [facility.country, Validators.compose([Validators.minLength(2), Validators.required])],
+      name: [facility.name, Validators.required],
+      number: [facility.number, Validators.required],
+      postalCode: [facility.postalCode, Validators.required],
+      street: [facility.street, Validators.required],
+      idOrganization: [facility.idOrganization]
+    })
+
+    this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: "Facility", apiName: "facilities", fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
+  }
+
+  deleteFacility(facility: any) {
+    if (confirm("Are you sure to delete facility " + facility.name + "?")) {
+      this.facilitiesService.deleteFacility(facility.id).subscribe(response => {
+        this.refresh();
+      });
+    }
   }
 }
+
+
+

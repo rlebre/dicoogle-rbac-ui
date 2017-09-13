@@ -1,42 +1,38 @@
 <div class="row pull-right">
-    <button class="btn bt-primary" (click)="openNewFacilityModalWindow()">New</button>
+  <button class="btn bt-primary" (click)="openNewFacilityModalWindow()">New</button>
+  <button class="btn bt-primary" (click)="refresh()"><i class="fa fa-refresh"  [class.fa-spin]="isRefreshing==true" aria-hidden="true"></i></button>
 </div>
 
 <div class="row">
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>autoUnlockWS</th>
-            <th>city</th>
-            <th>country</th>
-            <th>createdDate</th>
-            <th>name</th>
-            <th>number</th>
-            <th>postalCode</th>
-            <th>street</th>
-            <th>uuid</th>
-            <th>organization_id</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th *ngFor="let field of this.fields">
+          {{ field.headerField }}
+        </th>
+        <th>Created Date</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="dataAvailable">
+      <tr *ngFor="let row of this.tableData">
+        <td>{{ row.id }}</td>
+        <td>{{ row.uuid }}</td>
+        <td>{{ row.city }}</td>
+        <td>{{ row.country }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.number }}</td>
+        <td>{{ row.postalCode }}</td>
+        <td>{{ row.street }}</td>
+        <td>{{ row.organization }}</td>
+        <td>{{ row.createdDate }}</td>
+        <button class="btn bt-primary btn-sm" (click)="editFacility(row)" [style.margin]="'3px'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button class="btn bt-primary btn-sm" (click)="deleteFacility(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="col-md-12 text-center" *ngIf="!dataAvailable">No data to show</div>
 </div>
