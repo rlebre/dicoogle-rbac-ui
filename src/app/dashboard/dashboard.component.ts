@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SelectedEntityService } from '../sidebar/selected-entity/selected-entity.service'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,7 +17,7 @@ export class DashboardComponent implements OnInit {
     console.log(this._opened);
   }
 
-  constructor() { }
+  constructor(private selectedEntityService: SelectedEntityService) { }
 
   ngOnInit() {
   }
