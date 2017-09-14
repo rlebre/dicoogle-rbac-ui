@@ -10,12 +10,8 @@
         <div class="form-group row" *ngFor="let field of context.fields">
           <label for="{{ field.headerField }}" class="col-sm-3 col-form-label">{{ field.headerField }}</label>
           <div class="col-sm-9">
-            <input type="{{ field.inputType.replace('?','') }}" class="form-control" id="{{ field.apiField }}"  formControlName="{{ field.apiField }}"
-             placeholder="{{ field.headerField }}" [attr.required]="field.inputType.endsWith('?') ? '' : undefined">
-             <!-- <div [hidden]="field.apiField.valid || field.apiField.pristine"
-                class="alert alert-danger">
-              {{ field.headerField }} is required
-            </div> -->
+            <input type="{{ field.inputType.replace('?','') }}" class="form-control" id="{{ field.apiField }}" formControlName="{{ field.apiField }}"
+              placeholder="{{ field.headerField }}" [attr.required]="field.inputType.endsWith('?') ? '' : undefined">
           </div>
         </div>
 
@@ -25,3 +21,32 @@
     </div>
   </div>
 </div>
+
+<app-info-confirm-dialog [(visible)]="showDialogSuccess">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ context.caller }} created</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>The entity was created with the ID {{ entityId }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogSuccessCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>
+
+<app-info-confirm-dialog [(visible)]="showDialogError">
+  <div class="modal-header">
+    <h4 class="modal-title">Error creating {{ context.caller }}</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>The entity was not created.</p>
+    <p>Error: {{ errorMessage }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>

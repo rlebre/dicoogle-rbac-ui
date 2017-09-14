@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DialogRef, ModalComponent, CloseGuard } from 'ngx-modialog';
+import { DialogRef, ModalComponent, CloseGuard, Modal } from 'ngx-modialog';
 import { BSModalContext } from 'ngx-modialog/plugins/bootstrap';
 
 import { FormGroup } from '@angular/forms';
 
 import { CreateEntityService } from '../create-entity/create-entity.service';
+
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { InfoConfirmDialogComponent } from '../info-confirm-dialog/info-confirm-dialog.component';
+import 'rxjs/add/operator/catch';
 
 export class InputField {
   public apiField: String;
@@ -33,20 +37,17 @@ export class CustomModalContext extends BSModalContext {
   templateUrl: './modal-new-entity.component.html',
   styleUrls: ['./modal-new-entity.component.css']
 })
-export class ModalNewEntity implements CloseGuard, ModalComponent<CustomModalContext> {
+export class ModalNewEntity implements ModalComponent<CustomModalContext> {
   context: CustomModalContext;
+  dialogRef: MdDialogRef<InfoConfirmDialogComponent>;
+  showDialogSuccess = false;
+  showDialogError = false;
+  entityId: String;
+  errorMessage: String;
+
 
   constructor(public dialog: DialogRef<CustomModalContext>, private createEntityService: CreateEntityService) {
     this.context = dialog.context;
-  }
-
-
-  beforeDismiss(): boolean {
-    return true;
-  }
-
-  beforeClose(): boolean {
-    return true;
   }
 
   closeDialog() {
@@ -54,10 +55,26 @@ export class ModalNewEntity implements CloseGuard, ModalComponent<CustomModalCon
   }
 
   onSubmit(f: any) {
-    //console.log(this.context);
-    //console.log(this.context.formGroup.value);
     let apiName = this.context.apiName;
     let data = this.context.formGroup.value;
-    this.createEntityService.post(apiName, data).subscribe();
+    this.createEntityService.post(apiName, data).subscribe(res => {
+      if (res.status === 200) {
+        this.entityId = res.json().id;
+        this.showDialogSuccess = true;
+      }
+    },
+      err => {
+        this.errorMessage = err.status + " - " + err.statusText;
+        this.showDialogError = true;
+      });
+  }
+
+  showDialogSuccessCloseClick() {
+    this.showDialogSuccess = false;
+    this.dialog.close();
+  }
+
+  showDialogErrorCloseClick() {
+    this.showDialogError = false;
   }
 }
