@@ -9,6 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FacilitiesService } from './facilities.service';
 
 import { Observable } from 'rxjs/Rx';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -22,19 +23,9 @@ export class FacilitiesComponent implements OnInit {
   dataAvailable: boolean;
   tableData: any;
   isRefreshing = false;
-
   timer;
-
-  newFacilityForm = this.fb.group({
-    uuidAtCP: ["", Validators.required],
-    city: ["", Validators.required],
-    country: ["", Validators.compose([Validators.minLength(2), Validators.required])],
-    name: ["", Validators.required],
-    number: ["", Validators.required],
-    postalCode: ["", Validators.required],
-    street: ["", Validators.required],
-    idOrganization: [""]
-  });
+  newFacilityForm: FormGroup;
+  apiEndpoint: String;
 
   constructor(public fb: FormBuilder, public modal: Modal, private facilitiesService: FacilitiesService) {
     let uuidAtCP = new InputField("uuidAtCP", "UUID at CP", "text");
@@ -47,6 +38,19 @@ export class FacilitiesComponent implements OnInit {
     let organization = new InputField("idOrganization", "Organization ID", "number?");
 
     this.fields = [uuidAtCP, city, country, name, number, postalCode, street, organization];
+
+    this.newFacilityForm = this.fb.group({
+      uuidAtCP: ["", Validators.required],
+      city: ["", Validators.required],
+      country: ["", Validators.compose([Validators.minLength(2), Validators.required])],
+      name: ["", Validators.required],
+      number: ["", Validators.required],
+      postalCode: ["", Validators.required],
+      street: ["", Validators.required],
+      idOrganization: [""]
+    });
+
+    this.apiEndpoint = "facilities";
   }
 
   ngOnInit() {
@@ -56,7 +60,7 @@ export class FacilitiesComponent implements OnInit {
 
   openNewFacilityModalWindow() {
     const dialogRef = this.modal.open(ModalNewEntity,
-      overlayConfigFactory({ caller: "Facility", apiName: "facilities", fields: this.fields, formGroup: this.newFacilityForm }, BSModalContext));
+      overlayConfigFactory({ caller: "Facility", apiName: this.apiEndpoint, fields: this.fields, formGroup: this.newFacilityForm }, BSModalContext));
   }
 
   fillTableWithReceivedData(jsonList) {
@@ -83,7 +87,7 @@ export class FacilitiesComponent implements OnInit {
   }
 
   requestAllFacilitiesFromServer() {
-    this.facilitiesService.getAllFacilities().subscribe(response => {
+    this.facilitiesService.getAll(this.apiEndpoint).subscribe(response => {
       this.fillTableWithReceivedData(response.json());
     });
   }
@@ -100,12 +104,12 @@ export class FacilitiesComponent implements OnInit {
       idOrganization: [facility.idOrganization]
     })
 
-    this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: "Facility", apiName: "facilities", fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
+    this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: "Facility", apiName: this.apiEndpoint, fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
   }
 
   deleteFacility(facility: any) {
     if (confirm("Are you sure to delete facility " + facility.name + "?")) {
-      this.facilitiesService.deleteFacility(facility.id).subscribe(response => {
+      this.facilitiesService.delete(this.apiEndpoint, facility.id).subscribe(response => {
         this.refresh();
       });
     }
