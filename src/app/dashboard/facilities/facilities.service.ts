@@ -14,25 +14,31 @@ export class FacilitiesService {
 
   constructor(private http: HttpClient) {
     if (this.dev) {
-      this.url = "http://localhost:8080/multi_archive/facilities";
+      this.url = "http://localhost:8080/multi_archive/";
     } else {
-      this.url = window.location.origin + "/multi_archive/facilities";
+      this.url = window.location.origin + "/multi_archive/";
     }
   }
 
-  getAllFacilities() {
-    return this.http.get(this.url);
+  getAll(endpoint: String) {
+    return this.http.get(this.url + endpoint);
   }
 
-  deleteFacility(id: Number) {
-    return this.http.delete(this.url + "?id=" + id);
+
+  getByName(endpoint: String, name: String) {
+    let urlAndEndpoint = this.url + endpoint;
+    let nameParameter = "?name=" + name;
+    return this.http.get(urlAndEndpoint + nameParameter);
   }
 
-  // getAnnotationByName() {
-  //   return this.http.get(this.url);
-  // }
+  getById(endpoint: String, id: String) {
+    let urlAndEndpoint = this.url + endpoint;
+    let idParameter = "?id=" + id;
+    return this.http.get(urlAndEndpoint + idParameter);
+  }
 
-  // getAnnotationById() {
-  //   return this.http.get(this.url);
-  // }
+  delete(endpoint: String, id: Number) {
+    let urlAndEndpoint = this.url + endpoint;
+    return this.http.delete(urlAndEndpoint + "?id=" + id);
+  }
 }
