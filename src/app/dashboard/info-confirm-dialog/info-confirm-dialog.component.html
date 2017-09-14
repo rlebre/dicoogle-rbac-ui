@@ -1,0 +1,20 @@
+<div [@dialog] *ngIf="visible" class="dialog">
+  <ng-content></ng-content>
+  <!-- <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button> -->
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>
+
+<!-- <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Remove Employee</h4>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you wish to remove this user?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+      <button class="btn btn-danger" id="remove-button" type="submit">Remove</button>
+    </div>
+  </div>
+</div> -->
