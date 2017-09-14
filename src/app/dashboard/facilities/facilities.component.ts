@@ -26,6 +26,10 @@ export class FacilitiesComponent implements OnInit {
   timer;
   newFacilityForm: FormGroup;
   apiEndpoint: String;
+  facilityIdToDelete: Number;
+  showDialogDeleteConfirmation = false;
+  showDialogErrorGettingAllFacilities = false;
+  errorMessage: String;
 
   constructor(public fb: FormBuilder, public modal: Modal, private facilitiesService: FacilitiesService) {
     let uuidAtCP = new InputField("uuidAtCP", "UUID at CP", "text");
@@ -87,9 +91,14 @@ export class FacilitiesComponent implements OnInit {
   }
 
   requestAllFacilitiesFromServer() {
-    this.facilitiesService.getAll(this.apiEndpoint).subscribe(response => {
-      this.fillTableWithReceivedData(response.json());
-    });
+    this.facilitiesService.getAll(this.apiEndpoint).subscribe(
+      response => {
+        this.fillTableWithReceivedData(response.json());
+      },
+      err => {
+        this.errorMessage = err.status + " - " + err.statusText;
+        this.showDialogErrorGettingAllFacilities = true;
+      });
   }
 
   editFacility(facility: any) {
@@ -108,11 +117,23 @@ export class FacilitiesComponent implements OnInit {
   }
 
   deleteFacility(facility: any) {
-    if (confirm("Are you sure to delete facility " + facility.name + "?")) {
-      this.facilitiesService.delete(this.apiEndpoint, facility.id).subscribe(response => {
-        this.refresh();
-      });
-    }
+    this.showDialogDeleteConfirmation = true;
+    this.facilityIdToDelete = facility.id;
+  }
+
+  showDialogErrorCloseClick() {
+    this.showDialogErrorGettingAllFacilities = false;
+  }
+
+  deleteConfirmationYes() {
+    this.facilitiesService.delete(this.apiEndpoint, this.facilityIdToDelete).subscribe(response => {
+      this.refresh();
+      this.showDialogDeleteConfirmation = false;
+    });
+  }
+
+  deleteConfirmationNo() {
+    this.showDialogDeleteConfirmation = false;
   }
 }
 

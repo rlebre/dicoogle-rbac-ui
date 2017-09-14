@@ -36,3 +36,35 @@
 
   <div class="col-md-12 text-center" *ngIf="!dataAvailable">No data to show</div>
 </div>
+
+<!-- ERROR WHILE DOWNLOADING FACILITIES LIST -->
+<app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllFacilities">
+  <div class="modal-header">
+    <h4 class="modal-title">Error getting facilities</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Facilities were not retrieved.</p>
+    <p>Error: {{ errorMessage }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>
+
+<!-- DELETE CONFIRMATION -->
+<app-info-confirm-dialog [(visible)]="showDialogDeleteConfirmation">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete confirmation</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure you want to delete Facility with ID {{ facilityIdToDelete }}?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="deleteConfirmationYes()" class="btn">Yes</button>
+    <button (click)="deleteConfirmationNo()" class="btn">No</button>
+  </div>
+</app-info-confirm-dialog>
