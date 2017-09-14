@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -21,6 +23,7 @@ import { HttpClient } from './HttpAuthTokenInterceptor.service';
 
 import { SelectedEntityService } from './sidebar/selected-entity/selected-entity.service'
 import { CreateEntityService } from './dashboard/create-entity/create-entity.service';
+import { InfoConfirmDialogComponent } from './dashboard/info-confirm-dialog/info-confirm-dialog.component';
 
 
 @NgModule({
@@ -29,7 +32,8 @@ import { CreateEntityService } from './dashboard/create-entity/create-entity.ser
         SidebarComponent,
         DashboardComponent,
         FacilitiesComponent,
-        ModalNewEntity
+        ModalNewEntity,
+        InfoConfirmDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -37,7 +41,8 @@ import { CreateEntityService } from './dashboard/create-entity/create-entity.ser
         BootstrapModalModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpModule
+        HttpModule,
+        BrowserAnimationsModule
     ],
     providers: [
         FacilitiesService,
