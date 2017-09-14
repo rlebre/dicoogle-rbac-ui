@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '../../HttpAuthTokenInterceptor.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CreateEntityService {
@@ -15,7 +16,7 @@ export class CreateEntityService {
     }
   }
 
-  post(caller, data) {
-    return this.http.post(this.url + caller, data);
+  post(apiEndpoint, data) {
+    return this.http.post(this.url + apiEndpoint, data);
   }
 }
