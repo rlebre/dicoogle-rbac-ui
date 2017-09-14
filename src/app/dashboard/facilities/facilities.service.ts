@@ -7,10 +7,8 @@ import { HttpClient } from '../../HttpAuthTokenInterceptor.service';
 
 @Injectable()
 export class FacilitiesService {
-
   private url: string;
   private dev = true;
-
 
   constructor(private http: HttpClient) {
     if (this.dev) {
@@ -23,7 +21,6 @@ export class FacilitiesService {
   getAll(endpoint: String) {
     return this.http.get(this.url + endpoint);
   }
-
 
   getByName(endpoint: String, name: String) {
     let urlAndEndpoint = this.url + endpoint;

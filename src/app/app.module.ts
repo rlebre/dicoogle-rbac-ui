@@ -24,7 +24,11 @@ import { HttpClient } from './HttpAuthTokenInterceptor.service';
 import { SelectedEntityService } from './sidebar/selected-entity/selected-entity.service'
 import { CreateEntityService } from './dashboard/create-entity/create-entity.service';
 import { InfoConfirmDialogComponent } from './dashboard/info-confirm-dialog/info-confirm-dialog.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
 
+
+import { routing } from './app.routing';
 
 @NgModule({
     declarations: [
@@ -33,7 +37,8 @@ import { InfoConfirmDialogComponent } from './dashboard/info-confirm-dialog/info
         DashboardComponent,
         FacilitiesComponent,
         ModalNewEntity,
-        InfoConfirmDialogComponent
+        InfoConfirmDialogComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
@@ -42,13 +47,15 @@ import { InfoConfirmDialogComponent } from './dashboard/info-confirm-dialog/info
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        routing
     ],
     providers: [
         FacilitiesService,
         HttpClient,
         SelectedEntityService,
-        CreateEntityService
+        CreateEntityService,
+        LoginService
     ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]

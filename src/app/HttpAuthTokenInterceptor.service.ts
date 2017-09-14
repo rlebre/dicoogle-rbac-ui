@@ -8,7 +8,7 @@ export class HttpClient {
     constructor(private http: Http) { }
 
     createAuthorizationHeader(headers: Headers) {
-        headers.append('Authorization', "85df68c9-cc1d-4019-8c56-c12630b2c79c");
+        headers.append('Authorization', localStorage.getItem('currentUser'));
     }
 
     get(url) {
