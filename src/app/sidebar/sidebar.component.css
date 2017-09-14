@@ -114,3 +114,11 @@ body {
     margin-right: 0;
   }
 }
+
+
+a:not([href]){
+  cursor: pointer; 
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  user-select: none
+}
