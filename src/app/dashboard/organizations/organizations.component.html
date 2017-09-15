@@ -1,3 +1,63 @@
-<p>
-  organizations works!
-</p>
+<div class="row pull-right">
+    <button class="btn bt-primary" (click)="openNewObjectModalWindow()">New</button>
+    <button class="btn bt-primary" (click)="refresh()"><i class="fa fa-refresh"  [class.fa-spin]="isRefreshing==true" aria-hidden="true"></i></button>
+  </div>
+  
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let field of this.fields">
+            {{ field.headerField }}
+          </th>
+          <th>Created Date</th>
+        </tr>
+      </thead>
+  
+      <tbody *ngIf="dataAvailable">
+        <tr *ngFor="let row of this.tableData">
+          <td>{{ row.id }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.createdDate }}</td>
+          <button class="btn bt-primary btn-sm" (click)="editObject(row)" [style.margin]="'3px'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+          <button class="btn bt-primary btn-sm" (click)="editObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="col-md-12 text-center" *ngIf="!dataAvailable">No data to show</div>
+  </div>
+  
+  <!-- ERROR WHILE DOWNLOADING FACILITIES LIST -->
+  <app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllFacilities">
+    <div class="modal-header">
+      <h4 class="modal-title">Error getting facilities</h4>
+    </div>
+  
+    <div class="modal-body">
+      <p>Facilities were not retrieved.</p>
+      <p>Error: {{ errorMessage }}</p>
+    </div>
+  
+    <div class="modal-footer">
+      <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+    </div>
+  </app-info-confirm-dialog>
+  
+  <!-- DELETE CONFIRMATION -->
+  <app-info-confirm-dialog [(visible)]="showDialogDeleteConfirmation">
+    <div class="modal-header">
+      <h4 class="modal-title">Delete confirmation</h4>
+    </div>
+  
+    <div class="modal-body">
+      <p>Are you sure you want to delete {{ caller }} with ID {{ idToDelete }}?</p>
+    </div>
+  
+    <div class="modal-footer">
+      <button (click)="deleteConfirmationYes()" class="btn">Yes</button>
+      <button (click)="deleteConfirmationNo()" class="btn">No</button>
+    </div>
+  </app-info-confirm-dialog>

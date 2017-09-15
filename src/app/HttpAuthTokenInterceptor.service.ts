@@ -4,8 +4,16 @@ import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class HttpClient {
+    private url: string;
+    private dev = true;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+        if (this.dev) {
+            this.url = "http://localhost:8080/multi_archive/";
+        } else {
+            this.url = window.location.origin + "/multi_archive/";
+        }
+    }
 
     createAuthorizationHeader(headers: Headers) {
         headers.append('Authorization', localStorage.getItem('currentUser'));
