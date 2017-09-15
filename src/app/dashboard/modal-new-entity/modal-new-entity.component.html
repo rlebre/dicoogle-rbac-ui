@@ -10,8 +10,13 @@
         <div class="form-group row" *ngFor="let field of context.fields">
           <label for="{{ field.headerField }}" class="col-sm-3 col-form-label">{{ field.headerField }}</label>
           <div class="col-sm-9">
-            <input type="{{ field.inputType.replace('?','') }}" class="form-control" id="{{ field.apiField }}" formControlName="{{ field.apiField }}"
-              placeholder="{{ field.headerField }}" [attr.required]="field.inputType.endsWith('?') ? '' : undefined">
+            <input *ngIf="field.inputType.replace('?','') !== 'dropdown'" type="{{ field.inputType.replace('?','') }}" class="form-control"
+              id="{{ field.apiField }}" formControlName="{{ field.apiField }}" placeholder="{{ field.headerField }}" [attr.required]="field.inputType.endsWith('?') ? '' : undefined">
+
+            <select *ngIf="field.inputType.replace('?','') === 'dropdown'" class="form-control" id="{{ field.apiField }}" formControlName="{{ field.apiField }}"
+              [attr.required]="field.inputType.endsWith('?') ? '' : undefined">
+              <option *ngFor="let dropdownField of field.dropdownFields">{{ dropdownField }}</option>
+            </select>
           </div>
         </div>
 
