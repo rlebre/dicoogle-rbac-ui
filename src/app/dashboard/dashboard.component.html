@@ -1,1 +1,62 @@
+<div class="row dashboard-margins" *ngIf="this.selectedEntityService.selectedSection==='dashboard'">
+    <div class="jumbotron">
+        <h2 class="display-3"> <a class="logo" href="index.html"><img src="../assets/images/logo.png" alt="" height="30px"></a> Accounting Mechanism</h2>
+        <p class="lead">
+            Dicoogle Accounting Mechanism interface allows the creation, edit and removal of entities associated with the system.
+        </p>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <div class="dashboard-margins">
+                <h4>Organizations</h4>
+                <p>Create, edit or delete Organizations</p>
+            </div>
+
+            <div class="dashboard-margins">
+                <h4>Facilities</h4>
+                <p>Create, edit or delete Facilities</p>
+            </div>
+
+            <div class="dashboard-margins">
+                <h4>Users</h4>
+                <p>Create, edit or delete Users</p>
+            </div>
+
+            <div class="dashboard-margins">
+                <h4>Categories</h4>
+                <p>Create, edit or delete Categories</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="dashboard-margins">
+                <h4>Roles</h4>
+                <p>Create, edit or delete Roles</p>
+            </div>
+
+            <div class="dashboard-margins">
+                <h4>Permissions</h4>
+                <p>Create, edit or delete Permissions</p>
+            </div>
+
+            <div class="dashboard-margins">
+                <h4>Operations</h4>
+                <p>Create, edit or delete Operations</p>
+            </div>
+
+            <div class="dashboard-margins">
+                <h4>Sharing</h4>
+                <p>Create, edit or delete Sharing</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <app-facilities *ngIf="this.selectedEntityService.selectedSection==='facilities'"></app-facilities>
+<!-- <app-facilities *ngIf="this.selectedEntityService.selectedSection==='organizations'"></app-facilities>
+<app-facilities *ngIf="this.selectedEntityService.selectedSection==='users'"></app-facilities>
+<app-facilities *ngIf="this.selectedEntityService.selectedSection==='roles'"></app-facilities>
+<app-facilities *ngIf="this.selectedEntityService.selectedSection==='permissions'"></app-facilities>
+<app-facilities *ngIf="this.selectedEntityService.selectedSection==='operations'"></app-facilities>
+<app-facilities *ngIf="this.selectedEntityService.selectedSection==='categories'"></app-facilities> -->
