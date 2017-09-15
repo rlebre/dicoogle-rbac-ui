@@ -1,33 +1,13 @@
-<!-- <div class="container">
-  <div class="navbar-header">
-    <a id="menu-toggle" href="#" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-        </a>
-
-  </div>
-  <div id="sidebar-wrapper" class="sidebar-toggle">
-    <ul class="sidebar-nav">
-      <li *ngFor="let section of arrayOfSections">
-        <a href="#{{ section.toLowerCase() }}">{{ section }}</a>
-      </li>
-    </ul>
-  </div>
-</div> -->
-
 <div id="wrapper" [class.toggled]="toggled">
-
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
-        <a href="#">Dicoogle RBAC</a>
+        <div class="col-md-8 nopadding"><a href="/">Dicoogle RBAC</a></div>
+        <div class="col-md-2 nopadding">
+          <a (click)="logoutClick()"><i class="fa fa-sign-out whiteButton bigButton" aria-hidden="true"></i></a>
+        </div>
       </li>
-      <!-- <li *ngFor="let section of arrayOfSections">
-        <a href="#{{ section.toLowerCase() }}">{{ section }}</a>
-      </li> -->
       <li>
         <a (click)="facilitiesClick()">Facilities</a>
       </li>
@@ -60,5 +40,4 @@
     </div>
   </div>
   <!-- /#page-content-wrapper -->
-
 </div>

@@ -122,3 +122,16 @@ a:not([href]){
   -moz-user-select: none; 
   user-select: none
 }
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.whiteButton {
+  color: white;
+}
+
+.bigButton {
+  font-size: 1.3em;
+}
