@@ -54,9 +54,9 @@
 </div>
 
 <app-facilities *ngIf="this.selectedEntityService.selectedSection==='facilities'"></app-facilities>
-<!-- <app-facilities *ngIf="this.selectedEntityService.selectedSection==='organizations'"></app-facilities>
-<app-facilities *ngIf="this.selectedEntityService.selectedSection==='users'"></app-facilities>
-<app-facilities *ngIf="this.selectedEntityService.selectedSection==='roles'"></app-facilities>
-<app-facilities *ngIf="this.selectedEntityService.selectedSection==='permissions'"></app-facilities>
-<app-facilities *ngIf="this.selectedEntityService.selectedSection==='operations'"></app-facilities>
-<app-facilities *ngIf="this.selectedEntityService.selectedSection==='categories'"></app-facilities> -->
+<app-organizations *ngIf="this.selectedEntityService.selectedSection==='organizations'"></app-organizations>
+<app-users *ngIf="this.selectedEntityService.selectedSection==='users'"></app-users>
+<app-roles *ngIf="this.selectedEntityService.selectedSection==='roles'"></app-roles>
+<app-permissions *ngIf="this.selectedEntityService.selectedSection==='permissions'"></app-permissions>
+<app-operations *ngIf="this.selectedEntityService.selectedSection==='operations'"></app-operations>
+<app-categories *ngIf="this.selectedEntityService.selectedSection==='categories'"></app-categories>

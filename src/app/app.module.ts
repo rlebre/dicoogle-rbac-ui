@@ -29,6 +29,12 @@ import { LoginService } from './login/login.service';
 
 
 import { routing } from './app.routing';
+import { OrganizationsComponent } from './dashboard/organizations/organizations.component';
+import { UsersComponent } from './dashboard/users/users.component';
+import { RolesComponent } from './dashboard/roles/roles.component';
+import { PermissionsComponent } from './dashboard/permissions/permissions.component';
+import { OperationsComponent } from './dashboard/operations/operations.component';
+import { CategoriesComponent } from './dashboard/categories/categories.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +44,13 @@ import { routing } from './app.routing';
         FacilitiesComponent,
         ModalNewEntity,
         InfoConfirmDialogComponent,
-        LoginComponent
+        LoginComponent,
+        OrganizationsComponent,
+        UsersComponent,
+        RolesComponent,
+        PermissionsComponent,
+        OperationsComponent,
+        CategoriesComponent
     ],
     imports: [
         BrowserModule,
