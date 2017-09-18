@@ -40,7 +40,9 @@ import { FacilitiesService } from './dashboard/facilities/facilities.service';
 import { OrganizationsService } from './dashboard/organizations/organizations.service';
 import { UsersService } from './dashboard/users/users.service';
 import { RolesService } from './dashboard/roles/roles.service';
+import { PermissionsService } from './dashboard/permissions/permissions.service';
 import { OperationsService } from './dashboard/operations/operations.service';
+import { CategoriesService } from './dashboard/categories/categories.service';
 
 
 @NgModule({
@@ -78,7 +80,9 @@ import { OperationsService } from './dashboard/operations/operations.service';
         OrganizationsService,
         UsersService,
         RolesService,
+        PermissionsService,
         OperationsService,
+        CategoriesService
     ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]
