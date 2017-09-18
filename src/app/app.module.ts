@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { FacilitiesService } from './dashboard/facilities/facilities.service';
 import { HttpClient } from './HttpAuthTokenInterceptor.service';
 
 import { SelectedEntityService } from './sidebar/selected-entity/selected-entity.service'
@@ -35,6 +34,13 @@ import { RolesComponent } from './dashboard/roles/roles.component';
 import { PermissionsComponent } from './dashboard/permissions/permissions.component';
 import { OperationsComponent } from './dashboard/operations/operations.component';
 import { CategoriesComponent } from './dashboard/categories/categories.component';
+
+
+import { FacilitiesService } from './dashboard/facilities/facilities.service';
+import { OrganizationsService } from './dashboard/organizations/organizations.service';
+import { UsersService } from './dashboard/users/users.service';
+import { RolesService } from './dashboard/roles/roles.service';
+
 
 @NgModule({
     declarations: [
@@ -63,11 +69,14 @@ import { CategoriesComponent } from './dashboard/categories/categories.component
         routing
     ],
     providers: [
-        FacilitiesService,
         HttpClient,
         SelectedEntityService,
         CreateEntityService,
-        LoginService
+        LoginService,
+        FacilitiesService,
+        OrganizationsService,
+        UsersService,
+        RolesService
     ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]

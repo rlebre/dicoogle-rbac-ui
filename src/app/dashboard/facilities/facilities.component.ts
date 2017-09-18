@@ -65,6 +65,10 @@ export class FacilitiesComponent implements OnInit {
   openNewFacilityModalWindow() {
     const dialogRef = this.modal.open(ModalNewEntity,
       overlayConfigFactory({ caller: "Facility", apiName: this.apiEndpoint, fields: this.fields, formGroup: this.newFacilityForm }, BSModalContext));
+    dialogRef
+      .then(dialogRef => {
+        dialogRef.result.then(result => this.refresh());
+      });
   }
 
   fillTableWithReceivedData(jsonList) {
@@ -113,7 +117,11 @@ export class FacilitiesComponent implements OnInit {
       idOrganization: [facility.idOrganization]
     })
 
-    this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: "Facility", apiName: this.apiEndpoint, fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
+    const dialogRef = this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: "Facility", apiName: this.apiEndpoint, fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
+    dialogRef
+      .then(dialogRef => {
+        dialogRef.result.then(result => this.refresh());
+      });
   }
 
   deleteFacility(facility: any) {
