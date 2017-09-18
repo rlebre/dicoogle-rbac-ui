@@ -51,6 +51,10 @@ export class SidebarComponent implements OnInit {
     this.selectedEntityService.selectedSection = "categories";
   }
 
+  resourcesClick() {
+    this.selectedEntityService.selectedSection = "resources";
+  }
+
   logoutClick() {
     this.loginService.logout()
       .subscribe(
