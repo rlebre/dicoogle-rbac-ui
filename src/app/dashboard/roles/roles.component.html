@@ -22,7 +22,7 @@
         <td>{{ row.createdDate }}</td>
 
         <button class="btn bt-primary btn-sm" (click)="editObject(row)" [style.margin]="'3px'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button class="btn bt-primary btn-sm" (click)="editObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
       </tr>
     </tbody>
   </table>

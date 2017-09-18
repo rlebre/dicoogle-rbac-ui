@@ -34,7 +34,7 @@ import { RolesComponent } from './dashboard/roles/roles.component';
 import { PermissionsComponent } from './dashboard/permissions/permissions.component';
 import { OperationsComponent } from './dashboard/operations/operations.component';
 import { CategoriesComponent } from './dashboard/categories/categories.component';
-
+import { ResourcesComponent } from './dashboard/resources/resources.component';
 
 import { FacilitiesService } from './dashboard/facilities/facilities.service';
 import { OrganizationsService } from './dashboard/organizations/organizations.service';
@@ -43,6 +43,7 @@ import { RolesService } from './dashboard/roles/roles.service';
 import { PermissionsService } from './dashboard/permissions/permissions.service';
 import { OperationsService } from './dashboard/operations/operations.service';
 import { CategoriesService } from './dashboard/categories/categories.service';
+import { ResourcesService } from './dashboard/resources/resources.service';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { CategoriesService } from './dashboard/categories/categories.service';
         RolesComponent,
         PermissionsComponent,
         OperationsComponent,
-        CategoriesComponent
+        CategoriesComponent,
+        ResourcesComponent
     ],
     imports: [
         BrowserModule,
@@ -82,7 +84,8 @@ import { CategoriesService } from './dashboard/categories/categories.service';
         RolesService,
         PermissionsService,
         OperationsService,
-        CategoriesService
+        CategoriesService,
+        ResourcesService
     ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]

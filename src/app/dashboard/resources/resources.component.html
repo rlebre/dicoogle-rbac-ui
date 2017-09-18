@@ -1,5 +1,4 @@
 <div class="row pull-right">
-  <button class="btn bt-primary" (click)="openNewObjectModalWindow()">New</button>
   <button class="btn bt-primary" (click)="refresh()"><i class="fa fa-refresh"  [class.fa-spin]="isRefreshing==true" aria-hidden="true"></i></button>
 </div>
 
@@ -8,9 +7,8 @@
     <thead>
       <tr>
         <th>#</th>
-        <th *ngFor="let field of this.fields">
-          {{ field.headerField }}
-        </th>
+        <th>Instance UID</th>
+        <th>Model Level</th>
         <th>Created Date</th>
       </tr>
     </thead>
@@ -18,10 +16,11 @@
     <tbody *ngIf="dataAvailable">
       <tr *ngFor="let row of this.tableData">
         <td>{{ row.id }}</td>
-        <td>{{ row.name }}</td>
+        <td>{{ row.instanceUID }}</td>
+        <td>{{ row.modelLevel }}</td>
         <td>{{ row.createdDate }}</td>
-        <button class="btn bt-primary btn-sm" (click)="editObject(row)" [style.margin]="'3px'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>        
+      
+        <button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
       </tr>
     </tbody>
   </table>
@@ -29,14 +28,14 @@
   <div class="col-md-12 text-center" *ngIf="!dataAvailable">No data to show</div>
 </div>
 
-<!-- ERROR WHILE DOWNLOADING OPERATIONS LIST -->
-<app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllOperations">
+<!-- ERROR WHILE DOWNLOADING CATEGORIES LIST -->
+<app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllResources">
   <div class="modal-header">
-    <h4 class="modal-title">Error getting operations</h4>
+    <h4 class="modal-title">Error getting resources</h4>
   </div>
 
   <div class="modal-body">
-    <p>Operations were not retrieved.</p>
+    <p>Resources were not retrieved.</p>
     <p>Error: {{ errorMessage }}</p>
   </div>
 
