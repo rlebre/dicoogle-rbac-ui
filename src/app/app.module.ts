@@ -40,6 +40,7 @@ import { FacilitiesService } from './dashboard/facilities/facilities.service';
 import { OrganizationsService } from './dashboard/organizations/organizations.service';
 import { UsersService } from './dashboard/users/users.service';
 import { RolesService } from './dashboard/roles/roles.service';
+import { OperationsService } from './dashboard/operations/operations.service';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { RolesService } from './dashboard/roles/roles.service';
         FacilitiesService,
         OrganizationsService,
         UsersService,
-        RolesService
+        RolesService,
+        OperationsService,
     ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]
