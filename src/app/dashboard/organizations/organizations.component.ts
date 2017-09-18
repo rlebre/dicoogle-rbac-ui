@@ -52,6 +52,10 @@ export class OrganizationsComponent implements OnInit {
   openNewObjectModalWindow() {
     const dialogRef = this.modal.open(ModalNewEntity,
       overlayConfigFactory({ caller: this.caller, apiName: this.apiEndpoint, fields: this.fields, formGroup: this.newObjectForm }, BSModalContext));
+    dialogRef
+      .then(dialogRef => {
+        dialogRef.result.then(result => this.refresh());
+      });
   }
 
   fillTableWithReceivedData(jsonList) {
@@ -89,7 +93,15 @@ export class OrganizationsComponent implements OnInit {
   }
 
   editObject(organization: any) {
-    this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: this.caller, apiName: this.apiEndpoint, fields: this.fields, formGroup: this.newObjectForm, aa: this.refresh }, BSModalContext));
+    var form = this.fb.group({
+      name: [organization.name, Validators.required],
+    })
+    
+    const dialogRef = this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: this.caller, apiName: this.apiEndpoint, fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
+    dialogRef
+      .then(dialogRef => {
+        dialogRef.result.then(result => this.refresh());
+      });
   }
 
   deleteObject(organization: any) {
