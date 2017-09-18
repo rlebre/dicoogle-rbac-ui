@@ -30,14 +30,14 @@
     <div class="col-md-12 text-center" *ngIf="!dataAvailable">No data to show</div>
   </div>
   
-  <!-- ERROR WHILE DOWNLOADING FACILITIES LIST -->
-  <app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllFacilities">
+  <!-- ERROR WHILE DOWNLOADING ORGANIZATIONS LIST -->
+  <app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllOrganizations">
     <div class="modal-header">
-      <h4 class="modal-title">Error getting facilities</h4>
+      <h4 class="modal-title">Error getting organizations</h4>
     </div>
   
     <div class="modal-body">
-      <p>Facilities were not retrieved.</p>
+      <p>Organizations were not retrieved.</p>
       <p>Error: {{ errorMessage }}</p>
     </div>
   

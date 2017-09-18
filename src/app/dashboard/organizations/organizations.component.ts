@@ -27,7 +27,7 @@ export class OrganizationsComponent implements OnInit {
   apiEndpoint: String;
   idToDelete: Number;
   showDialogDeleteConfirmation = false;
-  showDialogErrorGettingAllFacilities = false;
+  showDialogErrorGettingAllOrganizations = false;
   errorMessage: String;
   caller: String;
 
@@ -45,7 +45,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.requestAllFacilitiesFromServer();
+    this.requestAllOrganizationsFromServer();
   }
 
 
@@ -74,21 +74,21 @@ export class OrganizationsComponent implements OnInit {
     this.timer = Observable.timer(1000);
     this.timer.subscribe(t => this.tickerFunc(t));
 
-    this.requestAllFacilitiesFromServer();
+    this.requestAllOrganizationsFromServer();
   }
 
   tickerFunc(tick) {
     this.isRefreshing = false;
   }
 
-  requestAllFacilitiesFromServer() {
+  requestAllOrganizationsFromServer() {
     this.organizationsService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
       },
       err => {
         this.errorMessage = err.status + " - " + err.statusText;
-        this.showDialogErrorGettingAllFacilities = true;
+        this.showDialogErrorGettingAllOrganizations = true;
       });
   }
 
@@ -110,7 +110,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   showDialogErrorCloseClick() {
-    this.showDialogErrorGettingAllFacilities = false;
+    this.showDialogErrorGettingAllOrganizations = false;
   }
 
   deleteConfirmationYes() {
