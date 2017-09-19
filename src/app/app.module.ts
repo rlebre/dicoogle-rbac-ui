@@ -18,16 +18,14 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { HttpClient } from './HttpAuthTokenInterceptor.service';
+import { HttpClient } from './HttpApiMiddleware.service';
 
 import { SelectedEntityService } from './sidebar/selected-entity/selected-entity.service'
-import { CreateEntityService } from './dashboard/create-entity/create-entity.service';
 import { InfoConfirmDialogComponent } from './dashboard/info-confirm-dialog/info-confirm-dialog.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
-
 
 import { routing } from './app.routing';
+
 import { OrganizationsComponent } from './dashboard/organizations/organizations.component';
 import { UsersComponent } from './dashboard/users/users.component';
 import { RolesComponent } from './dashboard/roles/roles.component';
@@ -35,15 +33,7 @@ import { PermissionsComponent } from './dashboard/permissions/permissions.compon
 import { OperationsComponent } from './dashboard/operations/operations.component';
 import { CategoriesComponent } from './dashboard/categories/categories.component';
 import { ResourcesComponent } from './dashboard/resources/resources.component';
-
-import { FacilitiesService } from './dashboard/facilities/facilities.service';
-import { OrganizationsService } from './dashboard/organizations/organizations.service';
-import { UsersService } from './dashboard/users/users.service';
-import { RolesService } from './dashboard/roles/roles.service';
-import { PermissionsService } from './dashboard/permissions/permissions.service';
-import { OperationsService } from './dashboard/operations/operations.service';
-import { CategoriesService } from './dashboard/categories/categories.service';
-import { ResourcesService } from './dashboard/resources/resources.service';
+import { UserDetailsComponent } from './dashboard/user-details/user-details.component';
 
 
 @NgModule({
@@ -61,7 +51,8 @@ import { ResourcesService } from './dashboard/resources/resources.service';
         PermissionsComponent,
         OperationsComponent,
         CategoriesComponent,
-        ResourcesComponent
+        ResourcesComponent,
+        UserDetailsComponent
     ],
     imports: [
         BrowserModule,
@@ -75,17 +66,7 @@ import { ResourcesService } from './dashboard/resources/resources.service';
     ],
     providers: [
         HttpClient,
-        SelectedEntityService,
-        CreateEntityService,
-        LoginService,
-        FacilitiesService,
-        OrganizationsService,
-        UsersService,
-        RolesService,
-        PermissionsService,
-        OperationsService,
-        CategoriesService,
-        ResourcesService
+        SelectedEntityService
     ],
     bootstrap: [AppComponent],
     entryComponents: [ModalNewEntity]

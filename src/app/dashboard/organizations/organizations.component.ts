@@ -6,7 +6,7 @@ import { ModalNewEntity, InputField } from '../modal-new-entity/modal-new-entity
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { OrganizationsService } from './organizations.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -31,7 +31,7 @@ export class OrganizationsComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private organizationsService: OrganizationsService) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
     let name = new InputField("name", "Name", "text");
 
     this.fields = [name];
@@ -82,7 +82,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   requestAllOrganizationsFromServer() {
-    this.organizationsService.getAll(this.apiEndpoint).subscribe(
+    this.crudService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
       },
@@ -114,7 +114,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   deleteConfirmationYes() {
-    this.organizationsService.delete(this.apiEndpoint, this.idToDelete).subscribe(response => {
+    this.crudService.deleteById(this.apiEndpoint, this.idToDelete).subscribe(response => {
       this.refresh();
       this.showDialogDeleteConfirmation = false;
     });

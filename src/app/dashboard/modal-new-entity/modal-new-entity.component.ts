@@ -5,7 +5,7 @@ import { BSModalContext } from 'ngx-modialog/plugins/bootstrap';
 
 import { FormGroup } from '@angular/forms';
 
-import { CreateEntityService } from '../create-entity/create-entity.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { InfoConfirmDialogComponent } from '../info-confirm-dialog/info-confirm-dialog.component';
@@ -46,7 +46,7 @@ export class ModalNewEntity implements ModalComponent<CustomModalContext> {
   errorMessage: String;
 
 
-  constructor(public dialog: DialogRef<CustomModalContext>, private createEntityService: CreateEntityService) {
+  constructor(public dialog: DialogRef<CustomModalContext>, private createEntityService: HttpClient) {
     this.context = dialog.context;
   }
 

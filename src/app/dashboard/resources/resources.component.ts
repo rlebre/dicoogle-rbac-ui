@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { ResourcesService } from './resources.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -25,7 +25,7 @@ export class ResourcesComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(private resourcesService: ResourcesService) {
+  constructor(private crudService: HttpClient) {
     this.apiEndpoint = "resources";
     this.caller = "Resource";
   }
@@ -58,10 +58,9 @@ export class ResourcesComponent implements OnInit {
   }
 
   requestAllResourcesFromServer() {
-    this.resourcesService.getAll(this.apiEndpoint).subscribe(
+    this.crudService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
-        console.log(response.json());
       },
       err => {
         this.errorMessage = err.status + " - " + err.statusText;
@@ -79,7 +78,7 @@ export class ResourcesComponent implements OnInit {
   }
 
   deleteConfirmationYes() {
-    this.resourcesService.delete(this.apiEndpoint, this.idToDelete).subscribe(response => {
+    this.crudService.deleteById(this.apiEndpoint, this.idToDelete).subscribe(response => {
       this.refresh();
       this.showDialogDeleteConfirmation = false;
     });

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SelectedEntityService } from './selected-entity/selected-entity.service'
 import { Router } from '@angular/router';
-import { LoginService } from '../login/login.service';
+import { HttpClient } from '../HttpApiMiddleware.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   arrayOfSections = ['Facilities', 'Organizations', 'Users', 'Roles', 'Permissions', 'Operations', 'Categories'];
   toggled = true;
 
-  constructor(private selectedEntityService: SelectedEntityService, private loginService: LoginService, private router: Router) { }
+  constructor(private selectedEntityService: SelectedEntityService, private loginService: HttpClient, private router: Router) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+
+import { HttpClient } from '../HttpApiMiddleware.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: HttpClient, private router: Router) { }
 
   ngOnInit() {
 

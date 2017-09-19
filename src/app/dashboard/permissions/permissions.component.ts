@@ -6,7 +6,7 @@ import { ModalNewEntity, InputField } from '../modal-new-entity/modal-new-entity
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { PermissionsService } from './permissions.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -30,7 +30,7 @@ export class PermissionsComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private permissionsService: PermissionsService) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
     let categoryName = new InputField("categoryName", "Category Name", "text");
     let operationName = new InputField("operationName", "Operation Name", "text");
     let instanceUID = new InputField("resourceUID", "Resource UID", "text");
@@ -84,7 +84,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   requestAllPermissionsFromServer() {
-    this.permissionsService.getAll(this.apiEndpoint).subscribe(
+    this.crudService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
       },
@@ -117,7 +117,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   deleteConfirmationYes() {
-    this.permissionsService.delete(this.apiEndpoint, this.idToDelete).subscribe(response => {
+    this.crudService.deleteById(this.apiEndpoint, this.idToDelete).subscribe(response => {
       this.refresh();
       this.showDialogDeleteConfirmation = false;
     });

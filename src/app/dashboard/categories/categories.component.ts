@@ -6,7 +6,7 @@ import { ModalNewEntity, InputField } from '../modal-new-entity/modal-new-entity
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { CategoriesService } from './categories.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -30,7 +30,7 @@ export class CategoriesComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private categoriesService: CategoriesService) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
     let name = new InputField("name", "Name", "text");
 
     this.fields = [name];
@@ -80,7 +80,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   requestAllCategoriesFromServer() {
-    this.categoriesService.getAll(this.apiEndpoint).subscribe(
+    this.crudService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
       },
@@ -112,7 +112,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   deleteConfirmationYes() {
-    this.categoriesService.delete(this.apiEndpoint, this.idToDelete).subscribe(response => {
+    this.crudService.deleteById(this.apiEndpoint, this.idToDelete).subscribe(response => {
       this.refresh();
       this.showDialogDeleteConfirmation = false;
     });

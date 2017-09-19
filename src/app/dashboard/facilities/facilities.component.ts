@@ -6,7 +6,7 @@ import { ModalNewEntity, InputField } from '../modal-new-entity/modal-new-entity
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { FacilitiesService } from './facilities.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -31,7 +31,7 @@ export class FacilitiesComponent implements OnInit {
   showDialogErrorGettingAllFacilities = false;
   errorMessage: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private facilitiesService: FacilitiesService) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
     let uuidAtCP = new InputField("uuidAtCP", "UUID at CP", "text");
     let city = new InputField("city", "City", "text");
     let country = new InputField("country", "Country", "text");
@@ -95,7 +95,7 @@ export class FacilitiesComponent implements OnInit {
   }
 
   requestAllFacilitiesFromServer() {
-    this.facilitiesService.getAll(this.apiEndpoint).subscribe(
+    this.crudService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
       },
@@ -134,7 +134,7 @@ export class FacilitiesComponent implements OnInit {
   }
 
   deleteConfirmationYes() {
-    this.facilitiesService.delete(this.apiEndpoint, this.facilityIdToDelete).subscribe(response => {
+    this.crudService.deleteById(this.apiEndpoint, this.facilityIdToDelete).subscribe(response => {
       this.refresh();
       this.showDialogDeleteConfirmation = false;
     });

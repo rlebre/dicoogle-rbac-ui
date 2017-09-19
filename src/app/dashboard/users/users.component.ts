@@ -6,7 +6,7 @@ import { ModalNewEntity, InputField } from '../modal-new-entity/modal-new-entity
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { UsersService } from './users.service';
+import { HttpClient } from '../../HttpApiMiddleware.service';
 
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -23,7 +23,6 @@ export class UsersComponent implements OnInit {
   tableData: any;
   isRefreshing = false;
   timer;
-  newObjectForm: FormGroup;
   apiEndpoint: String;
   idToDelete: Number;
   showDialogDeleteConfirmation = false;
@@ -31,7 +30,7 @@ export class UsersComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private usersService: UsersService) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
     let title = new InputField("title", "Title", "dropdown", ["Mr.", "Dr.", "Mrs.", "Dra."]);
     let firstName = new InputField("firstName", "First Name", "text");
     let lastName = new InputField("lastName", "Last Name", "text");
@@ -39,14 +38,6 @@ export class UsersComponent implements OnInit {
     let password = new InputField("password", "Password", "password");
 
     this.fields = [title, firstName, lastName, email, password];
-
-    this.newObjectForm = this.fb.group({
-      title: ["", Validators.compose([Validators.minLength(2), Validators.required])],
-      firstName: ["", Validators.compose([Validators.minLength(3), Validators.required])],
-      lastName: ["", Validators.compose([Validators.minLength(3), Validators.required])],
-      email: ["", Validators.compose([Validators.minLength(3), Validators.required, Validators.email])],
-      password: ["", Validators.compose([Validators.minLength(3), Validators.required])]
-    });
 
     this.apiEndpoint = "users";
     this.caller = "User";
@@ -58,8 +49,16 @@ export class UsersComponent implements OnInit {
 
 
   openNewObjectModalWindow() {
+    let newObjectForm = this.fb.group({
+      title: ["", Validators.compose([Validators.minLength(2), Validators.required])],
+      firstName: ["", Validators.compose([Validators.minLength(3), Validators.required])],
+      lastName: ["", Validators.compose([Validators.minLength(3), Validators.required])],
+      email: ["", Validators.compose([Validators.minLength(3), Validators.required, Validators.email])],
+      password: ["", Validators.compose([Validators.minLength(3), Validators.required])]
+    });
+
     const dialogRef = this.modal.open(ModalNewEntity,
-      overlayConfigFactory({ caller: this.caller, apiName: this.apiEndpoint, fields: this.fields, formGroup: this.newObjectForm }, BSModalContext));
+      overlayConfigFactory({ caller: this.caller, apiName: this.apiEndpoint, fields: this.fields, formGroup: newObjectForm }, BSModalContext));
     dialogRef
       .then(dialogRef => {
         dialogRef.result.then(result => this.refresh());
@@ -90,7 +89,7 @@ export class UsersComponent implements OnInit {
   }
 
   requestAllUsersFromServer() {
-    this.usersService.getAll(this.apiEndpoint).subscribe(
+    this.crudService.getAll(this.apiEndpoint).subscribe(
       response => {
         this.fillTableWithReceivedData(response.json());
       },
@@ -126,7 +125,7 @@ export class UsersComponent implements OnInit {
   }
 
   deleteConfirmationYes() {
-    this.usersService.delete(this.apiEndpoint, this.idToDelete).subscribe(response => {
+    this.crudService.deleteById(this.apiEndpoint, this.idToDelete).subscribe(response => {
       this.refresh();
       this.showDialogDeleteConfirmation = false;
     });
@@ -134,6 +133,10 @@ export class UsersComponent implements OnInit {
 
   deleteConfirmationNo() {
     this.showDialogDeleteConfirmation = false;
+  }
+
+  rowClick(user: any) {
+    console.log(user);
   }
 }
 
