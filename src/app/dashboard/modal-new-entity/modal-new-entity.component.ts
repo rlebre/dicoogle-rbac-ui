@@ -57,6 +57,7 @@ export class ModalNewEntity implements ModalComponent<CustomModalContext> {
   onSubmit(f: any) {
     let apiName = this.context.apiName;
     let data = this.context.formGroup.value;
+
     this.createEntityService.post(apiName, data).subscribe(res => {
       if (res.status === 200) {
         this.entityId = res.json().id;

@@ -13,6 +13,9 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  showLoginIncorrectWindow = false;
+  showLoginErrorWindow = false;
+  loginErrorWindowMessage: String;
 
   constructor(private loginService: HttpClient, private router: Router) { }
 
@@ -25,12 +28,28 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.model.username, this.model.password)
       .subscribe(
       res => {
-        localStorage.setItem("currentUser", res.json().token);
-        this.router.navigate(['/']);
+        let resJson = res.json();
+
+        if (resJson.status == 'success') {
+          localStorage.setItem("currentUser", res.json().token);
+          this.router.navigate(['/']);
+        } else if (resJson.status == 'error') {
+          this.showLoginIncorrectWindow = true;
+        }
       },
       error => {
-        alert(error);
-        this.loading = false;
+        if (error.status == '0') {
+          this.loginErrorWindowMessage = "Login server is down";
+        } else {
+          this.loginErrorWindowMessage = error;
+        }
+        this.showLoginErrorWindow = true;
       });
+  }
+
+  showDialogErrorCloseClick() {
+    this.showLoginIncorrectWindow = false;
+    this.showLoginErrorWindow = false;
+    this.loading = false;
   }
 }

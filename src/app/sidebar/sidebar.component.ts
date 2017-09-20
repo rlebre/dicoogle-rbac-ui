@@ -10,17 +10,9 @@ import { HttpClient } from '../HttpApiMiddleware.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
-  arrayOfSections = ['Facilities', 'Organizations', 'Users', 'Roles', 'Permissions', 'Operations', 'Categories'];
-  toggled = true;
-
   constructor(private selectedEntityService: SelectedEntityService, private loginService: HttpClient, private router: Router) { }
 
   ngOnInit() {
-  }
-
-  toggleLeft(event: any) {
-    this.toggled = !this.toggled;
   }
 
   facilitiesClick() {
@@ -63,7 +55,8 @@ export class SidebarComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error => {
-        alert(error);
+        localStorage.removeItem('currentUser');
+        this.router.navigate(['/']);
       });
   }
 }

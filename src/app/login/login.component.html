@@ -18,3 +18,31 @@
     </div>
   </form>
 </div>
+
+<app-info-confirm-dialog [(visible)]="showLoginIncorrectWindow">
+  <div class="modal-header">
+    <h4 class="modal-title">Error during login</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>User or password incorrect</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>
+
+<app-info-confirm-dialog [(visible)]="showLoginErrorWindow">
+  <div class="modal-header">
+    <h4 class="modal-title">Error during login</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>{{ loginErrorWindowMessage }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>

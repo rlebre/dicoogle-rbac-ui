@@ -107,6 +107,7 @@ export class FacilitiesComponent implements OnInit {
 
   editFacility(facility: any) {
     var form = this.fb.group({
+      id: [facility.id],
       uuidAtCP: [facility.uuid, Validators.required],
       city: [facility.city, Validators.required],
       country: [facility.country, Validators.compose([Validators.minLength(2), Validators.required])],

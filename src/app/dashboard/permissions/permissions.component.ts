@@ -96,6 +96,7 @@ export class PermissionsComponent implements OnInit {
 
   editObject(permission: any) {
     var form = this.fb.group({
+      id: [permission.id],
       categoryName: [permission.category.name, Validators.compose([Validators.minLength(3), Validators.required])],
       operationName: [permission.operation.name, Validators.compose([Validators.minLength(3), Validators.required])],
       resourceUID: [permission.resource === null ? "" : permission.resource.instanceUID]

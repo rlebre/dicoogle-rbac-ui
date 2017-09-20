@@ -92,6 +92,7 @@ export class CategoriesComponent implements OnInit {
 
   editObject(category: any) {
     var form = this.fb.group({
+      id: [category.id],
       name: [category.name, Validators.required],
     })
 
