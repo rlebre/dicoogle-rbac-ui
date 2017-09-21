@@ -1,8 +1,8 @@
-<div class="row pull-right">
+<div class="pull-right">
   <button class="btn bt-primary" (click)="refresh()"><i class="fa fa-refresh"  [class.fa-spin]="isRefreshing==true" aria-hidden="true"></i></button>
 </div>
 
-<div class="row">
+<div>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -19,7 +19,7 @@
         <td>{{ row.instanceUID }}</td>
         <td>{{ row.modelLevel }}</td>
         <td>{{ row.createdDate }}</td>
-      
+
         <button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
       </tr>
     </tbody>

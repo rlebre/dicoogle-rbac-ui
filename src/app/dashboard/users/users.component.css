@@ -9,3 +9,8 @@ td {
 .table-hover>tbody>tr:hover {
     background-color: #ddd;
 }
+
+.pull-right {
+    float: right !important;
+    margin-right: 10px;
+}
