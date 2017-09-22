@@ -1,3 +1,164 @@
-<p>
-  user-details works!
-</p>
+<div>
+  <div class="col-md-4">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>{{ id }}</td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td *ngIf="userDataAvailable">{{ user.title }} {{ user.firstName }} {{ user.lastName }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td *ngIf="userDataAvailable">{{ user.email }}</td>
+        </tr>
+        <tr>
+          <th>Created Date</th>
+          <td *ngIf="userDataAvailable">{{ user.createdDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-1">
+    <button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+  </div>
+  <div class="col-md-offset-2 col-md-6">
+    <div class="pull-right"><button class="btn bt-primary btn-sm" (click)="getOrganizations()" [style.margin]="'3px'"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button></div>
+    <div class="pull-right"><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button></div>
+  </div>
+</div>
+
+<div class="col-md-12 association-row">
+  <!-- ORGANIZATIONS -->
+  <div class="col-md-6">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selOrganizationsRbac">RBAC Organizations</label>
+        <select #selOrganizationsRbac multiple class="form-control" id="selOrganizationsRbac" (change)="multiSelectionChanged($event.target.options, 'organizations')">
+          <option *ngFor="let organization of organizations" [value]="organization.id">{{ organization.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 select-buttons">
+      <div><button class="btn bt-primary btn-sm" (click)="addOrganization(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+      <div><button class="btn bt-primary btn-sm" (click)="removeOrganization(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selOrganizationsUser">User Organizations</label>
+        <select #selOrganizationsUser multiple class="form-control" id="selOrganizationsUser" (change)="multiSelectionChanged($event.target.options, 'userOrganizations')">
+            <option *ngFor="let organization of userOrganizations" [value]="organization.id">{{ organization.name }}</option>
+          </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACILITIES -->
+  <div class="col-md-6 mid-border">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selFacilitiesRbac">RBAC Facilities</label>
+        <select #selFacilitiesRbac multiple class="form-control" id="selFacilitiesRbac" (change)="multiSelectionChanged($event.target.options, 'facilities')">
+          <option *ngFor="let facility of facilities" [value]="facility.id">{{ facility.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 select-buttons">
+      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selFacilitiesUser">User Facilities</label>
+        <select #selFacilitiesUser multiple class="form-control" id="selFacilitiesUser" (change)="multiSelectionChanged($event.target.options, 'userFacilities')">
+          <option *ngFor="let facility of userFacilities" [value]="facility.id">{{ facility.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-12 association-row">
+  <!-- ROLES -->
+  <div class="col-md-6">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selRolesRbac">RBAC Roles</label>
+        <select #selRolesRbac multiple class="form-control" id="selRolesRbac" (change)="multiSelectionChanged($event.target.options, 'roles')">
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 select-buttons">
+      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selRolesUser">User roles</label>
+        <select #selRolesUser multiple class="form-control" id="selRolesUser" (change)="multiSelectionChanged($event.target.options, 'userRoles')">
+          <option *ngFor="let role of userRoles" [value]="role.id">{{ role.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHARED PERMISSIONS -->
+  <div class="col-md-6 mid-border">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selPermissionsRbac">RBAC Permissions</label>
+        <select #selPermissionsRbac multiple class="form-control" id="selPermissionsRbac" (change)="multiSelectionChanged($event.target.options, 'permissions')">
+          <option *ngFor="let permission of permissions" [value]="permission.id">{{ permission.id }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 select-buttons">
+      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="selPermissionsUser">User Permissions</label>
+        <select #selPermissionsUser multiple class="form-control" id="selPermissionsUser" (change)="multiSelectionChanged($event.target.options, 'userPermissions')">
+          <option *ngFor="let permission of userPermissions" [value]="permission.id">{{ permission.id }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ERROR WHILE DOWNLOADING USERS LIST -->
+<app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllUsers">
+  <div class="modal-header">
+    <h4 class="modal-title">Error getting users</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Users were not retrieved.</p>
+    <p>Error: {{ errorMessage }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>
+
+<!-- DELETE CONFIRMATION -->
+<app-info-confirm-dialog [(visible)]="showDialogDeleteConfirmation">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete confirmation</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure you want to delete User with ID {{ id }}?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="deleteConfirmationYes()" class="btn">Yes</button>
+    <button (click)="deleteConfirmationNo()" class="btn">No</button>
+  </div>
+</app-info-confirm-dialog>

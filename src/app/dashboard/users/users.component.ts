@@ -11,6 +11,8 @@ import { HttpClient } from '../../HttpApiMiddleware.service';
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -30,7 +32,7 @@ export class UsersComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient, private router: Router) {
     let title = new InputField("title", "Title", "dropdown", ["Mr.", "Dr.", "Mrs.", "Dra."]);
     let firstName = new InputField("firstName", "First Name", "text");
     let lastName = new InputField("lastName", "Last Name", "text");
@@ -136,7 +138,7 @@ export class UsersComponent implements OnInit {
   }
 
   rowClick(user: any) {
-    console.log(user);
+    this.router.navigate(['dashboard/user', user.id]);
   }
 }
 

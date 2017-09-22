@@ -16,35 +16,43 @@ export class SidebarComponent implements OnInit {
   }
 
   facilitiesClick() {
-    this.selectedEntityService.selectedSection = "facilities";
+    //this.selectedEntityService.selectedSection = "facilities";
+    this.router.navigate(['/dashboard/facilities']);
   }
 
   organizationsClick() {
-    this.selectedEntityService.selectedSection = "organizations";
+    //this.selectedEntityService.selectedSection = "organizations";
+    this.router.navigate(['/dashboard/organizations']);
   }
 
   usersClick() {
-    this.selectedEntityService.selectedSection = "users";
+    //this.selectedEntityService.selectedSection = "users";
+    this.router.navigate(['/dashboard/users']);
   }
 
   rolesClick() {
-    this.selectedEntityService.selectedSection = "roles";
+    // this.selectedEntityService.selectedSection = "roles";
+    this.router.navigate(['/dashboard/roles']);    
   }
 
   permissionsClick() {
-    this.selectedEntityService.selectedSection = "permissions";
+    this.router.navigate(['/dashboard/permissions']);
+    //this.selectedEntityService.selectedSection = "permissions";
   }
 
   operationsClick() {
-    this.selectedEntityService.selectedSection = "operations";
+    //this.selectedEntityService.selectedSection = "operations";
+    this.router.navigate(['/dashboard/operations']);    
   }
 
   categoriesClick() {
-    this.selectedEntityService.selectedSection = "categories";
+    this.router.navigate(['/dashboard/categories']);    
+    //this.selectedEntityService.selectedSection = "categories";
   }
 
   resourcesClick() {
-    this.selectedEntityService.selectedSection = "resources";
+    this.router.navigate(['/dashboard/resources']);    
+    //this.selectedEntityService.selectedSection = "resources";
   }
 
   logoutClick() {

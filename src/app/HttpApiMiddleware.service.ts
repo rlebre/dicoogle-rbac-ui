@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
-
 @Injectable()
 export class HttpClient {
     private url: string;
@@ -46,12 +45,46 @@ export class HttpClient {
         });
     }
 
+    getWithParameters(endpoint, parameters) {
+        let url = this.url + endpoint;
+        let headers = new Headers();
+
+        let params = new URLSearchParams();
+        for (let key in parameters) {
+            params.set(key, parameters[key])
+        }
+
+        url += "?" + params.toString();
+
+        this.createAuthorizationHeader(headers);
+        return this.http.get(url, {
+            headers: headers
+        });
+    }
+
     post(endpoint, data) {
         let url = this.url + endpoint;
         let headers = new Headers();
 
         this.createAuthorizationHeader(headers);
         return this.http.post(url, data, {
+            headers: headers
+        });
+    }
+
+    postWithParameters(endpoint, parameters) {
+        let url = this.url + endpoint;
+        let headers = new Headers();
+
+        let params = new URLSearchParams();
+        for (let key in parameters) {
+            params.set(key, parameters[key])
+        }
+
+        url += "?" + params.toString();
+
+        this.createAuthorizationHeader(headers);
+        return this.http.post(url, {}, {
             headers: headers
         });
     }
@@ -70,6 +103,23 @@ export class HttpClient {
             headers: headers
         });
 
+    }
+
+    deleteWithParameters(endpoint, parameters) {
+        let url = this.url + endpoint;
+        let headers = new Headers();
+
+        let params = new URLSearchParams();
+        for (let key in parameters) {
+            params.set(key, parameters[key])
+        }
+
+        url += "?" + params.toString();
+
+        this.createAuthorizationHeader(headers);
+        return this.http.delete(url, {
+            headers: headers
+        });
     }
 
     login(username: string, password: string) {

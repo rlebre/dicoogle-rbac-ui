@@ -1,4 +1,4 @@
-<div class="row dashboard-margins" *ngIf="this.selectedEntityService.selectedSection==='dashboard'">
+<!-- <div class="row dashboard-margins" *ngIf="this.selectedEntityService.selectedSection==='dashboard'">
     <div class="jumbotron jumbotron-container-padding">
         <h2 class="display-3"> <a class="logo" href="index.html"><img src="../assets/images/logo.png" alt="" height="30px"></a> Accounting Mechanism</h2>
         <p class="lead">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <app-facilities *ngIf="this.selectedEntityService.selectedSection==='facilities'"></app-facilities>
 <app-organizations *ngIf="this.selectedEntityService.selectedSection==='organizations'"></app-organizations>
@@ -61,3 +61,4 @@
 <app-operations *ngIf="this.selectedEntityService.selectedSection==='operations'"></app-operations>
 <app-categories *ngIf="this.selectedEntityService.selectedSection==='categories'"></app-categories>
 <app-resources *ngIf="this.selectedEntityService.selectedSection==='resources'"></app-resources>
+<router-outlet></router-outlet>
