@@ -108,10 +108,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.getRoles();
     this.getPermissions();
 
-    // this.getUserOrganizations();
+    this.getUserOrganizations();
     this.getUserFacilities();
-    // this.getUserRoles();
-    // this.getUserPermissions();
+    this.getUserRoles();
+    this.getUserPermissions();
   }
 
   getOrganizations() {
@@ -172,15 +172,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   removeUserEntityFromEntities(entities, userEntities) {
     if (entities != undefined && userEntities != undefined) {
-      for (let entity of entities) {
-        for (let userEntity of userEntities) {
-          if (entity.id === userEntity.id) {
-            var index = entities.indexOf(entity, 0);
-            if (index > -1) {
-              entities.splice(index, 1);
-            }
+      for (let userEntity of userEntities) {
+        entities.filter(function (element) {
+          if (+element.id === +userEntity.id) {
+            entities.splice(entities.indexOf(element), 1);
           }
-        }
+        });
       }
     }
   }
@@ -225,7 +222,114 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.selectedValues[entity] = Array.apply(null, options)
       .filter(option => option.selected)
       .map(option => option.value);
+  }
 
-    console.log(this.selectedValues);
+  addFacility() {
+    for (let idFacility of this.selectedValues["facilities"]) {
+      this.crudService.postWithParameters('userToFacility', { "idFacility": idFacility, "idUser": this.id }).subscribe(response => {
+        if (response.status === 200) {
+          this.facilities.map(function (element) {
+            if (+element.id === +idFacility) {
+              this.userFacilities.push(element);
+            }
+          }, this);
+
+          this.facilities = this.facilities.filter(function (element) {
+            return +element.id !== +idFacility;
+          });
+        }
+      });
+    }
+  }
+
+  removeFacility() {
+    for (let idFacility of this.selectedValues["userFacilities"]) {
+      this.crudService.deleteWithParameters('userToFacility', { "idFacility": idFacility, "idUser": this.id }).subscribe(response => {
+        if (response.status === 200) {
+          this.userFacilities.map(function (element) {
+            if (+element.id === +idFacility) {
+              this.facilities.push(element);
+            }
+          }, this);
+
+          this.userFacilities = this.userFacilities.filter(function (element) {
+            return +element.id !== +idFacility;
+          });
+        }
+      });
+    }
+  }
+
+  addRole() {
+    for (let idRole of this.selectedValues["roles"]) {
+      this.crudService.postWithParameters('roleToUser', { "idRole": idRole, "idUser": this.id }).subscribe(response => {
+        if (response.status === 200) {
+          this.roles.map(function (element) {
+            if (+element.id === +idRole) {
+              this.userRoles.push(element);
+            }
+          }, this);
+
+          this.roles = this.roles.filter(function (element) {
+            return +element.id !== +idRole;
+          });
+        }
+      });
+    }
+  }
+
+  removeRole() {
+    for (let idRole of this.selectedValues["userRoles"]) {
+      this.crudService.deleteWithParameters('roleToUser', { "idRole": idRole, "idUser": this.id }).subscribe(response => {
+        if (response.status === 200) {
+          this.userRoles.map(function (element) {
+            if (+element.id === +idRole) {
+              this.roles.push(element);
+            }
+          }, this);
+
+          this.userRoles = this.userRoles.filter(function (element) {
+            return +element.id !== +idRole;
+          });
+        }
+      });
+    }
+  }
+
+
+  addPermission() {
+    for (let idPermission of this.selectedValues["permissions"]) {
+      this.crudService.postWithParameters('userToPermission', { "idPermission": idPermission, "idUser": this.id }).subscribe(response => {
+        if (response.status === 200) {
+          this.permissions.map(function (element) {
+            if (+element.id === +idPermission) {
+              this.userPermissions.push(element);
+            }
+          }, this);
+
+          this.permissions = this.permissions.filter(function (element) {
+            return +element.id !== +idPermission;
+          });
+        }
+      });
+    }
+  }
+
+  removePermission() {
+    for (let idPermission of this.selectedValues["userPermissions"]) {
+      this.crudService.deleteWithParameters('userToPermission', { "idPermission": idPermission, "idUser": this.id }).subscribe(response => {
+        if (response.status === 200) {
+          this.userPermissions.map(function (element) {
+            if (+element.id === +idPermission) {
+              this.permissions.push(element);
+            }
+          }, this);
+
+          this.userPermissions = this.userPermissions.filter(function (element) {
+            return +element.id !== +idPermission;
+          });
+        }
+      });
+    }
   }
 }

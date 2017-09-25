@@ -24,10 +24,6 @@
   <div class="col-md-1">
     <button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
   </div>
-  <div class="col-md-offset-2 col-md-6">
-    <div class="pull-right"><button class="btn bt-primary btn-sm" (click)="getOrganizations()" [style.margin]="'3px'"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button></div>
-    <div class="pull-right"><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button></div>
-  </div>
 </div>
 
 <div class="col-md-12 association-row">
@@ -42,8 +38,8 @@
       </div>
     </div>
     <div class="col-md-2 select-buttons">
-      <div><button class="btn bt-primary btn-sm" (click)="addOrganization(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
-      <div><button class="btn bt-primary btn-sm" (click)="removeOrganization(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+      <button class="btn bt-primary btn-sm" (click)="addOrganization(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button class="btn bt-primary btn-sm" (click)="removeOrganization(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button>
     </div>
     <div class="col-md-5">
       <div class="form-group">
@@ -66,8 +62,8 @@
       </div>
     </div>
     <div class="col-md-2 select-buttons">
-      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
-      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+      <button class="btn bt-primary btn-sm" (click)="addFacility()" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button class="btn bt-primary btn-sm" (click)="removeFacility()" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button>
     </div>
     <div class="col-md-5">
       <div class="form-group">
@@ -93,8 +89,8 @@
       </div>
     </div>
     <div class="col-md-2 select-buttons">
-      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
-      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
+      <button class="btn bt-primary btn-sm" (click)="addRole()" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button class="btn bt-primary btn-sm" (click)="removeRole()" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button>
     </div>
     <div class="col-md-5">
       <div class="form-group">
@@ -108,25 +104,16 @@
 
   <!-- SHARED PERMISSIONS -->
   <div class="col-md-6 mid-border">
-    <div class="col-md-5">
-      <div class="form-group">
-        <label for="selPermissionsRbac">RBAC Permissions</label>
-        <select #selPermissionsRbac multiple class="form-control" id="selPermissionsRbac" (change)="multiSelectionChanged($event.target.options, 'permissions')">
-          <option *ngFor="let permission of permissions" [value]="permission.id">{{ permission.id }}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-2 select-buttons">
-      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
-      <div><button class="btn bt-primary btn-sm" (click)="deleteObject(row)" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button></div>
-    </div>
-    <div class="col-md-5">
+    <div class="col-md-10">
       <div class="form-group">
         <label for="selPermissionsUser">User Permissions</label>
         <select #selPermissionsUser multiple class="form-control" id="selPermissionsUser" (change)="multiSelectionChanged($event.target.options, 'userPermissions')">
           <option *ngFor="let permission of userPermissions" [value]="permission.id">{{ permission.id }}</option>
         </select>
       </div>
+    </div>
+    <div class="col-md-2 select-buttons">
+      <button class="btn bt-primary btn-sm" (click)="removePermission()" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i></button>
     </div>
   </div>
 </div>
