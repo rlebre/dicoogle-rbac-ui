@@ -36,6 +36,7 @@ import { ResourcesComponent } from './dashboard/resources/resources.component';
 import { UserDetailsComponent } from './dashboard/user-details/user-details.component';
 import { RolesDetailsComponent } from './dashboard/roles-details/roles-details.component';
 import { OrganizationDetailsComponent } from './dashboard/organization-details/organization-details.component';
+import { DashboardHomeComponent } from './dashboard/dashboard-home/dashboard-home.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { OrganizationDetailsComponent } from './dashboard/organization-details/o
         ResourcesComponent,
         UserDetailsComponent,
         RolesDetailsComponent,
-        OrganizationDetailsComponent
+        OrganizationDetailsComponent,
+        DashboardHomeComponent
     ],
     imports: [
         BrowserModule,

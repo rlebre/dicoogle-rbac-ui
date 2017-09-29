@@ -1,0 +1,20 @@
+.dashboard-margins {
+    margin:20px !important;
+}
+
+#footer-main {
+    background: #383838;
+    color: white;
+    padding: 2.5rem 0;
+}
+
+.footer-column * {
+    font-size: 10px;
+    color: white
+}
+
+.jumbotron-container-padding {
+    border-radius: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+}

@@ -15,6 +15,7 @@ import { PermissionsComponent } from './dashboard/permissions/permissions.compon
 import { OperationsComponent } from './dashboard/operations/operations.component';
 import { CategoriesComponent } from './dashboard/categories/categories.component';
 import { ResourcesComponent } from './dashboard/resources/resources.component';
+import { DashboardHomeComponent } from './dashboard/dashboard-home/dashboard-home.component';
 
 const appRoutes: Routes = [
     { path: '', component: AppComponent },
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     {
         path: 'dashboard', component: SidebarComponent,
         children: [
+            { path: 'home', component: DashboardHomeComponent },
             { path: 'facilities', component: FacilitiesComponent },
             { path: 'organizations', component: OrganizationsComponent },
             { path: 'organization/:id', component: OrganizationDetailsComponent },

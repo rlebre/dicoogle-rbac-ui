@@ -11,7 +11,7 @@ export class AppComponent {
         if(localStorage.getItem('currentUser') === null){
             this.router.navigate(['login']);
         }else{
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['dashboard/home']);
         }
     }
 
