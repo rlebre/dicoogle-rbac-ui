@@ -16,7 +16,7 @@
     </thead>
 
     <tbody *ngIf="dataAvailable">
-      <tr *ngFor="let row of this.tableData">
+      <tr *ngFor="let row of this.tableData" (click)="rowClick(row)">
         <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.createdDate }}</td>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Modal, BSModalContext } from 'ngx-modialog/plugins/bootstrap';
 import { Overlay, overlayConfigFactory } from 'ngx-modialog';
@@ -31,7 +32,7 @@ export class OrganizationsComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient, private router: Router) {
     let name = new InputField("name", "Name", "text");
 
     this.fields = [name];
@@ -96,7 +97,7 @@ export class OrganizationsComponent implements OnInit {
     var form = this.fb.group({
       name: [organization.name, Validators.required],
     })
-    
+
     const dialogRef = this.modal.open(ModalNewEntity, overlayConfigFactory({ caller: this.caller, apiName: this.apiEndpoint, fields: this.fields, formGroup: form, aa: this.refresh }, BSModalContext));
     dialogRef
       .then(dialogRef => {
@@ -122,6 +123,10 @@ export class OrganizationsComponent implements OnInit {
 
   deleteConfirmationNo() {
     this.showDialogDeleteConfirmation = false;
+  }
+
+  rowClick(organization: any) {
+    this.router.navigate(['dashboard/organization', organization.id]);
   }
 }
 

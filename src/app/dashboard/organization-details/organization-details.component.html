@@ -1,0 +1,83 @@
+<div>
+  <div class="col-md-4">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>{{ id }}</td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td *ngIf="organizationDataAvailable">{{ organization.name }}</td>
+        </tr>
+        <tr>
+          <th>Created Date</th>
+          <td *ngIf="organizationDataAvailable">{{ organization.createdDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-1">
+    <button class="btn bt-primary btn-sm" (click)="deleteObject()" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+  </div>
+</div>
+
+<div class="col-md-12 association-row">
+  <!-- PERMISSIONS -->
+  <div class="col-md-5">
+    <div class="form-group">
+      <label for="selFacilitiesRbac">RBAC Facilities</label>
+      <select #selPermissionsRbac multiple class="form-control" id="selFacilitiesRbac" (change)="multiSelectionChanged($event.target.options, 'facilities')">
+            <option *ngFor="let facility of facilities" [value]="facility.id">
+              {{ facility.id }} | {{ facility.name }}
+            </option>
+          </select>
+    </div>
+  </div>
+  <div class="col-md-2 select-buttons">
+    <button class="btn bt-primary btn-sm" (click)="addFacility()" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <button class="btn bt-primary btn-sm" (click)="removeFacility()" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button>
+  </div>
+  <div class="col-md-5">
+    <div class="form-group">
+      <label for="selFacilitiesOrganization">Organization Facilities</label>
+      <select #selPermissionsRole multiple class="form-control" id="selFacilitiesOrganization" (change)="multiSelectionChanged($event.target.options, 'organizationFacilities')">
+              <option *ngFor="let facility of organizationFacilities" [value]="facility.id">
+                  {{ facility.id }} | {{ facility.name }}   
+              </option>
+            </select>
+    </div>
+  </div>
+</div>
+
+<!-- ERROR WHILE DOWNLOADING ROLES LIST -->
+<app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllFacilities">
+  <div class="modal-header">
+    <h4 class="modal-title">Error getting organizations</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Organizations were not retrieved.</p>
+    <p>Error: {{ errorMessage }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>
+
+<!-- DELETE CONFIRMATION -->
+<app-info-confirm-dialog [(visible)]="showDialogDeleteConfirmation">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete confirmation</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure you want to delete Organization with ID {{ id }}?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="deleteConfirmationYes()" class="btn">Yes</button>
+    <button (click)="deleteConfirmationNo()" class="btn">No</button>
+  </div>
+</app-info-confirm-dialog>

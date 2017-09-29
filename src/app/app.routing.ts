@@ -8,6 +8,7 @@ import { UserDetailsComponent } from './dashboard/user-details/user-details.comp
 import { RolesDetailsComponent } from './dashboard/roles-details/roles-details.component';
 import { UsersComponent } from './dashboard/users/users.component';
 import { OrganizationsComponent } from './dashboard/organizations/organizations.component';
+import { OrganizationDetailsComponent } from './dashboard/organization-details/organization-details.component';
 import { FacilitiesComponent } from './dashboard/facilities/facilities.component';
 import { RolesComponent } from './dashboard/roles/roles.component';
 import { PermissionsComponent } from './dashboard/permissions/permissions.component';
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
         children: [
             { path: 'facilities', component: FacilitiesComponent },
             { path: 'organizations', component: OrganizationsComponent },
+            { path: 'organization/:id', component: OrganizationDetailsComponent },
             { path: 'users', component: UsersComponent },
             { path: 'user/:id', component: UserDetailsComponent },
             { path: 'roles', component: RolesComponent },
