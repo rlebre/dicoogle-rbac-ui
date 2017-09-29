@@ -1,0 +1,33 @@
+table {
+    width: auto;
+}
+
+.select-buttons {
+    padding-top:25px;
+    text-align:center;
+}
+
+.association-row {
+    padding-top: 5%;
+}
+
+.mid-border {
+    border-left: 3px solid rgb(192, 192, 192);
+}
+
+.form-control {
+    height: 200px;
+}
+
+
+@media (max-width: 991px){
+    .mid-border {
+        border-top: 3px solid rgb(192, 192, 192);
+        border-left: 0px solid rgb(192, 192, 192);
+        padding-top: 10px;
+    }
+
+    .select-buttons {
+        padding-top:0px;
+    }
+}

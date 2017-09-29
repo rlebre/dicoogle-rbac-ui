@@ -11,6 +11,8 @@ import { HttpClient } from '../../HttpApiMiddleware.service';
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
@@ -29,7 +31,7 @@ export class RolesComponent implements OnInit {
   errorMessage: String;
   caller: String;
 
-  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient) {
+  constructor(public fb: FormBuilder, public modal: Modal, private crudService: HttpClient, private router: Router) {
     let name = new InputField("name", "Name", "text");
 
     this.fields = [name];
@@ -120,6 +122,10 @@ export class RolesComponent implements OnInit {
 
   deleteConfirmationNo() {
     this.showDialogDeleteConfirmation = false;
+  }
+
+  rowClick(role: any) {
+    this.router.navigate(['dashboard/role', role.id]);
   }
 }
 

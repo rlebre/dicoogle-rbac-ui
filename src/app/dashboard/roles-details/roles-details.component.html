@@ -1,0 +1,161 @@
+<div>
+  <div class="col-md-4">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>{{ id }}</td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td *ngIf="roleDataAvailable">{{ role.name }}</td>
+        </tr>
+        <tr>
+          <th>Created Date</th>
+          <td *ngIf="roleDataAvailable">{{ role.createdDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-1">
+    <button class="btn bt-primary btn-sm" (click)="deleteObject()" [style.margin]="'3px'"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+  </div>
+</div>
+
+<div class="col-md-12 association-row">
+  <!-- PERMISSIONS -->
+  <div class="col-md-5">
+    <div class="form-group">
+      <label for="selPermissionsRbac">RBAC Permissions</label>
+      <select #selPermissionsRbac multiple class="form-control" id="selPermissionsRbac" (change)="multiSelectionChanged($event.target.options, 'permissions')"
+        (dblclick)="permissionDblClick($event.target.value)">
+          <option *ngFor="let permission of permissions" [value]="permission.id">
+            {{ permission.id }} | {{ permission.operation.name }} | {{ permission.category.name }} | {{ permission.resource?.instanceUID }}
+          </option>
+        </select>
+    </div>
+  </div>
+  <div class="col-md-2 select-buttons">
+    <button class="btn bt-primary btn-sm" (click)="addPermission()" [style.margin]="'3px'"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <button class="btn bt-primary btn-sm" (click)="removePermission()" [style.margin]="'3px'"><i class="fa fa-minus" aria-hidden="true"></i></button>
+  </div>
+  <div class="col-md-5">
+    <div class="form-group">
+      <label for="selPermissionsRole">Role Permissions</label>
+      <select #selPermissionsRole multiple class="form-control" id="selPermissionsRole" (change)="multiSelectionChanged($event.target.options, 'rolePermissions')"
+        (dblclick)="permissionDblClick($event.target.value)">
+            <option *ngFor="let permission of rolePermissions" [value]="permission.id">
+                {{ permission.id }} | {{ permission.operation.name }} | {{ permission.category.name }} | {{ permission.resource?.instanceUID }}      
+            </option>
+          </select>
+    </div>
+  </div>
+</div>
+
+<!-- ERROR WHILE DOWNLOADING ROLES LIST -->
+<app-info-confirm-dialog [(visible)]="showDialogErrorGettingAllRoles">
+  <div class="modal-header">
+    <h4 class="modal-title">Error getting roles</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Roles were not retrieved.</p>
+    <p>Error: {{ errorMessage }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="showDialogErrorCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>
+
+<!-- DELETE CONFIRMATION -->
+<app-info-confirm-dialog [(visible)]="showDialogDeleteConfirmation">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete confirmation</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure you want to delete Role with ID {{ id }}?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="deleteConfirmationYes()" class="btn">Yes</button>
+    <button (click)="deleteConfirmationNo()" class="btn">No</button>
+  </div>
+</app-info-confirm-dialog>
+
+<!-- PERMISSIONS DETAILS -->
+<app-info-confirm-dialog [(visible)]="showDialogPermissionDetails">
+  <div class="modal-header">
+    <h4 class="modal-title">Permission {{ dblClickPermission?.id }} details</h4>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <h4>Operation</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>ID</th>
+            <td>{{ dblClickPermission?.operation.id }}</td>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <td>{{ dblClickPermission?.operation.name }}</td>
+          </tr>
+          <tr>
+            <th>Created Date</th>
+            <td>{{ dblClickPermission?.operation.createdDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4>Category</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>ID</th>
+            <td>{{ id }}</td>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <td>{{ dblClickPermission?.category.name }}</td>
+          </tr>
+          <tr>
+            <th>Created Date</th>
+            <td>{{ dblClickPermission?.category.createdDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="dblClickPermission?.resource != null">
+      <h4>Resource</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>ID</th>
+            <td>{{ dblClickPermission?.resource?.id }}</td>
+          </tr>
+          <tr>
+            <th>Instance UID</th>
+            <td>{{ dblClickPermission?.resource?.instanceUID }}</td>
+          </tr>
+          <tr>
+            <th>Model Level</th>
+            <td>{{ dblClickPermission?.resource?.modelLevel }}</td>
+          </tr>
+          <tr>
+            <th>Created Date</th>
+            <td>{{ dblClickPermission?.resource?.createdDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="permissionDetailsCloseClick()" class="btn">Close</button>
+  </div>
+</app-info-confirm-dialog>

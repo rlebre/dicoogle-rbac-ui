@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { UserDetailsComponent } from './dashboard/user-details/user-details.component';
+import { RolesDetailsComponent } from './dashboard/roles-details/roles-details.component';
 import { UsersComponent } from './dashboard/users/users.component';
 import { OrganizationsComponent } from './dashboard/organizations/organizations.component';
 import { FacilitiesComponent } from './dashboard/facilities/facilities.component';
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
             { path: 'users', component: UsersComponent },
             { path: 'user/:id', component: UserDetailsComponent },
             { path: 'roles', component: RolesComponent },
+            { path: 'role/:id', component: RolesDetailsComponent },
             { path: 'permissions', component: PermissionsComponent },
             { path: 'operations', component: OperationsComponent },
             { path: 'categories', component: CategoriesComponent },
